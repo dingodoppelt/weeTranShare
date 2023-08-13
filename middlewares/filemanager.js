@@ -45,7 +45,6 @@ class FileManager {
                 this.files[key] = new File(data[key].path, data[key].maxDownloads, data[key].expirationDate, data[key].selfDestruct);
             }
         } catch (error) {
-            throw error;
             this.files = {};
             this.persistJsonChanges();
         }
