@@ -35,7 +35,6 @@ class FileManager {
         this.files = {};
         this.jsonFilePath = path.join(__dirname, 'db', 'jsonFileManager.json');
         this.initialize();
-        console.log(this.files);
     }
 
     initialize() {
