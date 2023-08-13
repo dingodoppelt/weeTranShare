@@ -60,7 +60,6 @@ class FileManager {
 
     getFileByToken(token) {
         const file = this.files[token];
-        console.log(file instanceof File);
         if (file && !file.downloadLimitReached() && !file.isExpired() && file.isFound()) {
             return file;
         }
