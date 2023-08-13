@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Upload</title>
+</head>
+<body>
+    <h1>File Upload</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="file">Select a file:</label>
+        <input type="file" name="file" id="file" required><br><br>
+
+        <label for="maxDownloads">Max Downloads:</label>
+        <input type="number" name="maxDownloads" id="maxDownloads" required><br><br>
+
+        <label for="expirationDate">Expiration Date:</label>
+        <input type="date" name="expirationDate" id="expirationDate" required><br><br>
+
+        <label for="selfDestruct">Self destruct after invalidation:</label>
+        <input type="checkbox" name="selfDestruct" id="selfDestruct"><br><br>
+
+        <button type="submit">Upload File</button>
+    </form>
+</body>
+</html>
