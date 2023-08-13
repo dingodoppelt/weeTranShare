@@ -7,7 +7,6 @@ const HOST = 'localhost';
 const filesDirectory = './files';
 
 const app = express();
-app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload())
 const fileManager = new FileManager();
 
