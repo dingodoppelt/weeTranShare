@@ -58,7 +58,7 @@ class FileManager {
         if (file && !file.downloadLimitReached() && !file.isExpired() && file.isFound()) {
             return file;
         }
-        if (file.selfDestruct) this.deleteFileByToken(token);
+        if (file.selfDestruct || !(file.isFound())) this.deleteFileByToken(token);
         return null;
     }
 
