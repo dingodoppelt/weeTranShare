@@ -10,7 +10,6 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload())
 const fileManager = new FileManager();
-fileManager.initialize();
 
 app.get('/download/:token', (req, res) => {
     const { token } = req.params;

@@ -34,13 +34,18 @@ class FileManager {
     constructor() {
         this.files = {};
         this.jsonFilePath = path.join(__dirname, 'db', 'jsonFileManager.json');
+        this.initialize();
+        console.log(this.files);
     }
 
     initialize() {
         try {
-            const data = fs.readFileSync(this.jsonFilePath, 'utf8');
-            this.files = JSON.parse(data);
+            const data = JSON.parse(fs.readFileSync(this.jsonFilePath, 'utf8'));
+            for (const key in data) {
+                this.files[key] = new File(data[key].path, data[key].maxDownloads, data[key].expirationDate, data[key].selfDestruct);
+            }
         } catch (error) {
+            throw error;
             this.files = {};
             this.persistJsonChanges();
         }
@@ -55,6 +60,7 @@ class FileManager {
 
     getFileByToken(token) {
         const file = this.files[token];
+        console.log(file instanceof File);
         if (file && !file.downloadLimitReached() && !file.isExpired() && file.isFound()) {
             return file;
         }
