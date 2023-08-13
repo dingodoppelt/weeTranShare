@@ -5,7 +5,7 @@ const crypto = require('crypto');
 class File {
     constructor(path, maxDownloads, expirationDate, selfDestruct = false) {
         this.path = path;
-        this.maxDownloads = maxDownloads;
+        this.maxDownloads = parseInt(maxDownloads);
         this.downloads = 0;
         this.expirationDate = expirationDate ? Math.floor(new Date(expirationDate).getTime() / 1000) : null;
         this.selfDestruct = selfDestruct;
