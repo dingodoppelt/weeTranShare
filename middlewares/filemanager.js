@@ -59,11 +59,11 @@ class FileManager {
 
     getFileByToken(token) {
         const file = this.files[token];
-        if (file && !file.downloadLimitReached() && !file.isExpired() && file.isFound()) {
+        if (!file) return null;
+        if (file.isFound() && !file.downloadLimitReached() && !file.isExpired()) {
             return file;
         }
         if (file.selfDestruct || !(file.isFound())) this.deleteFileByToken(token);
-        return null;
     }
 
     deleteFileByToken(token) {
