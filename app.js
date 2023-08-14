@@ -54,7 +54,6 @@ app.post('/upload', (req, res) => {
         const link = 'https://' + req.hostname + '/download/' + token;
         var qrcode = new QRCode({
             content: link,
-            container: "svg-viewbox", //Responsive use
             join: true //Crisp rendering and 4-5x reduced file size
         });
         var svg = qrcode.svg();
