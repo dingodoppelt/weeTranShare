@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const { File, FileManager } = require('./middlewares/filemanager');
+const QRCode = require("qrcode-svg");
 const PORT = 3000;
 const HOST = 'localhost';
 const filesDirectory = './files';
@@ -50,7 +51,15 @@ app.post('/upload', (req, res) => {
             return res.status(500).send('Error uploading file.');
         }
         const token = fileManager.addFile(jsonFileObject);
-        return res.send('<a href="https://' + req.hostname + '/download/' + token + '">Link</a>');
+        const link = 'https://' + req.hostname + '/download/' + token;
+        var qrcode = new QRCode({
+            content: link,
+            container: "svg-viewbox", //Responsive use
+            join: true //Crisp rendering and 4-5x reduced file size
+        });
+        var svg = qrcode.svg();
+        console.log(svg);
+        return res.send('<a href="' + link + '">' + svg + '</a>');
     });
 });
 
