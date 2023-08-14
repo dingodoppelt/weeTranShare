@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Files</title>
+</head>
+<body>
+  <h2>Manage Files</h2>
+  <form action="/manage/" method="POST" enctype="multipart/form-data">
+  <label for="fileSelect">Select a File:</label>
+  <select id="fileSelect" name="selectedFile">
+    <!-- Dynamic options will be inserted here -->
+  </select>
+  <button type="submit">Submit</button>
+  </form>
+
+  <p id="selectedFileToken">Selected file contents will be displayed here.</p>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', async () => {
+  const fileSelect = document.getElementById('fileSelect');
+  const selectedFileToken = document.getElementById('selectedFileToken');
+
+  // Fetch the file data from the server
+  const response = await fetch('/files');
+  const files = await response.json();
+
+  // Populate the select options with fetched data
+  for (const key in files) {
+    const option = document.createElement('option');
+    option.value = key;
+    option.textContent = files[key].path;
+    fileSelect.appendChild(option);
+  };
+
+  fileSelect.addEventListener('change', () => {
+    const fileContents = JSON.stringify(files[fileSelect.value]);
+    selectedFileToken.textContent = fileContents;
+  });
+});
+
+  </script>
+</body>
+</html>

@@ -8,7 +8,7 @@ const HOST = 'localhost';
 const filesDirectory = './files';
 
 const app = express();
-app.use(fileUpload())
+app.use(fileUpload());
 const fileManager = new FileManager();
 
 app.get('/download/:token', (req, res) => {
@@ -60,6 +60,26 @@ app.post('/upload', (req, res) => {
         var svg = qrcode.svg();
         return res.send('<a href="' + link + '">' + svg + '</a>');
     });
+});
+
+app.get('/files', (req, res) => {
+  const files = fileManager.files; // Annahme: getFiles() gibt ein Array von File-Objekten zurück.
+  res.json(files);
+});
+
+app.get('/manage', (req, res) => {
+    res.sendFile(path.join(__dirname, 'middlewares', 'manage.html'));
+});
+
+app.post('/manage', (req, res) => {
+    console.log(req.body);
+    const link = 'https://' + req.hostname + '/download/' + req.body.selectedFile;
+    var qrcode = new QRCode({
+        content: link,
+        join: true //Crisp rendering and 4-5x reduced file size
+    });
+    var svg = qrcode.svg();
+    return res.send('<a href="' + link + '">' + svg + '</a>');
 });
 
 app.listen(PORT, HOST, () => {
