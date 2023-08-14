@@ -3,10 +3,10 @@ const path = require('path');
 const crypto = require('crypto');
 
 class File {
-    constructor(path, maxDownloads, expirationDate, selfDestruct = false) {
+    constructor(path, maxDownloads, downloads = 0, expirationDate, selfDestruct = false) {
         this.path = path;
         this.maxDownloads = parseInt(maxDownloads);
-        this.downloads = 0;
+        this.downloads = parseInt(downloads);
         this.expirationDate = expirationDate ? Math.floor(new Date(expirationDate).getTime() / 1000) : null;
         this.selfDestruct = selfDestruct;
     }
@@ -41,7 +41,7 @@ class FileManager {
         try {
             const data = JSON.parse(fs.readFileSync(this.jsonFilePath, 'utf8'));
             for (const key in data) {
-                this.files[key] = new File(data[key].path, data[key].maxDownloads, data[key].expirationDate, data[key].selfDestruct);
+                this.files[key] = new File(data[key].path, data[key].maxDownloads, data[key].downloads, data[key].expirationDate, data[key].selfDestruct);
             }
         } catch (error) {
             this.files = {};

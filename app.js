@@ -26,6 +26,7 @@ app.get('/download/:token', (req, res) => {
             downloadError = err;
         } else {
             file.downloads += 1;
+            console.log(file.downloads);
             fileManager.persistJsonChanges();
             console.log('File downloaded successfully.');
         }
@@ -46,7 +47,7 @@ app.post('/upload', (req, res) => {
     }
 
     const filePath = path.join(filesDirectory, file.name);
-    const jsonFileObject = new File(filePath, maxDownloads, expirationDate, selfDestruct);
+    const jsonFileObject = new File(filePath, maxDownloads, 0, expirationDate, selfDestruct);
 
     file.mv(filePath, err => {
         if (err) {
