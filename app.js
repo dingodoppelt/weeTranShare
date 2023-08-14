@@ -21,8 +21,6 @@ app.get('/download/:token', (req, res) => {
     res.download(file.path, err => {
         if (err) {
             console.error('Download error:', err);
-            file.downloads -= 1;
-            fileManager.persistJsonChanges();
         } else {
             file.downloads += 1;
             fileManager.persistJsonChanges();
