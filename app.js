@@ -20,7 +20,7 @@ app.get('/download/:token', (req, res) => {
 
     let downloadError = null;
 
-    const downloadStream = res.download(file.path, err => {
+    res.download(file.path, err => {
         if (err) {
             console.error('Download error:', err);
             downloadError = err;
