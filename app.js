@@ -48,6 +48,7 @@ app.post('/upload', (req, res) => {
 
     file.mv(filePath, err => {
         if (err) {
+            console.log(err);
             return res.status(500).send('Error uploading file.');
         }
         const token = fileManager.addFile(jsonFileObject);
