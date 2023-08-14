@@ -18,16 +18,15 @@ app.get('/download/:token', (req, res) => {
         return res.status(401).send('Unauthorized');
     }
 
-    let downloadError = null;
-
     res.download(file.path, err => {
         if (err) {
             console.error('Download error:', err);
-            downloadError = err;
+            file.downloads -= 1;
+            fileManager.persistJsonChanges();
         } else {
             file.downloads += 1;
             fileManager.persistJsonChanges();
-            console.log('File downloaded successfully.');
+            console.log('Download started.');
         }
     });
 });
