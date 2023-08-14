@@ -69,7 +69,7 @@ class FileManager {
         if (this.files[token]) {
             delete this.files[token];
             this.persistJsonChanges();
-            console.log('deleted');
+            console.log('deleted: ' + token);
             return true;
         }
         return false;

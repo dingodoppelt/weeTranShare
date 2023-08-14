@@ -26,7 +26,6 @@ app.get('/download/:token', (req, res) => {
             downloadError = err;
         } else {
             file.downloads += 1;
-            console.log(file.downloads);
             fileManager.persistJsonChanges();
             console.log('File downloaded successfully.');
         }
