@@ -23,7 +23,7 @@
   const selectedFileToken = document.getElementById('selectedFileToken');
 
   // Fetch the file data from the server
-  const response = await fetch('/files');
+  const response = await fetch('/files/');
   const files = await response.json();
 
   // Populate the select options with fetched data
