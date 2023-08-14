@@ -58,7 +58,6 @@ app.post('/upload', (req, res) => {
             join: true //Crisp rendering and 4-5x reduced file size
         });
         var svg = qrcode.svg();
-        console.log(svg);
         return res.send('<a href="' + link + '">' + svg + '</a>');
     });
 });
