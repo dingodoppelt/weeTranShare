@@ -50,7 +50,7 @@ app.post('/upload', (req, res) => {
             return res.status(500).send('Error uploading file.');
         }
         const token = fileManager.addFile(jsonFileObject);
-        res.send('<a href="https://' + req.hostname + '/download/' + token + '">Link</a>');
+        return res.send('<a href="https://' + req.hostname + '/download/' + token + '">Link</a>');
     });
 });
 
