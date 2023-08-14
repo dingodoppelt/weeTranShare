@@ -17,16 +17,19 @@ app.get('/download/:token', (req, res) => {
     if (!file) {
         return res.status(401).send('Unauthorized');
     }
-    res.download(file.path, err => {
+
+    let downloadError = null;
+
+    const downloadStream = res.download(file.path, err => {
         if (err) {
             console.error('Download error:', err);
-            return res.status(500).send('Error downloading file.');
+            downloadError = err;
+        } else {
+            file.downloads += 1;
+            fileManager.persistJsonChanges();
+            console.log('File downloaded successfully.');
         }
-        file.downloads += 1;
-        fileManager.persistJsonChanges();
-        console.log('File downloaded successfully.');
     });
-
 });
 
 app.get('/upload', (req, res) => {
